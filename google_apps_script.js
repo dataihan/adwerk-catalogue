@@ -14,7 +14,7 @@
  */
 
 const GITHUB_OWNER = 'dataihan';   // ← change this
-const GITHUB_REPO  = 'adwerk-catalogue';         // ← your repo name
+const GITHUB_REPO  = 'adwerk-monthly-list-of-brands-create-case-study';         // ← your repo name
 const GITHUB_TOKEN = 'YOUR_GITHUB_PAT_TOKEN';   // ← GitHub Personal Access Token
 const GITHUB_FILE  = 'data/campaigns.json';      // path inside repo
 
