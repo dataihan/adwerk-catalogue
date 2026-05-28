@@ -179,18 +179,14 @@ footer p{font-family:var(--mono);font-size:9px;color:var(--g400)}
     </div>
     <div class="header-right">
       <span class="netlify-pill">live · netlify</span>
-      <span class="badge" id="year-badge">2022 – 2026</span>
+      <span class="badge" id="year-badge">2025 – 2026</span>
     </div>
   </header>
 
   <div class="year-tabs" id="year-tabs">
     <div class="year-tab active" data-year="all"  onclick="setYear('all')">All Years <span class="tab-count" id="tc-all"></span></div>
     <div class="year-tab"        data-year="2026" onclick="setYear('2026')">2026 <span class="tab-count" id="tc-2026"></span></div>
-    <div class="year-tab"        data-year="2025" onclick="setYear('2025')">2025 <span class="tab-count" id="tc-2025"></span></div>
-    <div class="year-tab"        data-year="2024" onclick="setYear('2024')">2024 <span class="tab-count" id="tc-2024"></span></div>
-    <div class="year-tab"        data-year="2023" onclick="setYear('2023')">2023 <span class="tab-count" id="tc-2023"></span></div>
-    <div class="year-tab"        data-year="2022" onclick="setYear('2022')">2022 &amp; Earlier <span class="tab-count" id="tc-2022"></span></div>
-  </div>
+    <div class="year-tab"        data-year="2025" onclick="setYear('2025')">2025 <span class="tab-count" id="tc-2025"></span></div>  </div>
 
   <div class="filter-bar">
     <div class="fg"><label>Search Campaign</label>
@@ -305,10 +301,12 @@ async function loadData() {
     const r = await fetch(DATA_URL + '?v=' + Date.now());
     if (!r.ok) throw new Error('fetch failed');
     DATA = await r.json();
+    DATA = DATA.filter(d=>d.year>=2025);
     document.getElementById('updated-at').textContent = 'Updated: ' + new Date().toLocaleDateString('en-GB');
   } catch(e) {
     console.warn('Using embedded data', e);
     DATA = EMBEDDED_DATA; // fallback
+    DATA = DATA.filter(d=>d.year>=2025);
     document.getElementById('updated-at').textContent = 'Updated: 25 May 2026 (embedded)';
   }
   document.getElementById('loading').style.display = 'none';
@@ -323,8 +321,7 @@ function initTabCounts() {
   const yc={};
   DATA.forEach(d=>{const y=String(d.year||'old');yc[y]=(yc[y]||0)+1;});
   document.getElementById('tc-all').textContent = DATA.length;
-  ['2026','2025','2024','2023'].forEach(y=>{const el=document.getElementById('tc-'+y);if(el)el.textContent=yc[y]||0;});
-  document.getElementById('tc-2022').textContent = (yc['2022']||0)+(yc['old']||0);
+  ['2026','2025'].forEach(y=>{const el=document.getElementById('tc-'+y);if(el)el.textContent=yc[y]||0;});
 }
 
 function adjustHeight() {
@@ -345,7 +342,6 @@ function setYear(y) {
 }
 function getBase() {
   if (activeYear==='all') return DATA;
-  if (activeYear==='2022') return DATA.filter(d=>!d.year||d.year<=2022);
   return DATA.filter(d=>String(d.year)===activeYear);
 }
 function populateFilters() {
