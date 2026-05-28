@@ -244,13 +244,11 @@ footer p{font-family:var(--mono);font-size:9px;color:var(--g400)}
         <th onclick="sortBy('achievement')"       data-col="achievement"      style="min-width:80px;text-align:right">AR%</th>
         <th onclick="sortBy('actualClicks')"      data-col="actualClicks"     style="min-width:80px;text-align:right">Act. Clicks</th>
         <th onclick="sortBy('ctr')"               data-col="ctr"              style="min-width:60px;text-align:right">CTR%</th>
-        <th onclick="sortBy('budgetEUR')"         data-col="budgetEUR"        style="min-width:80px;text-align:right">Budget €</th>
         <th onclick="sortBy('maids')"             data-col="maids"            style="min-width:70px;text-align:center">MAIDs</th>
         <th onclick="sortBy('numLocs')"           data-col="numLocs"          style="min-width:60px;text-align:center"># Locs</th>
         <th onclick="sortBy('radiusTargeting')"   data-col="radiusTargeting"  style="min-width:90px;text-align:center">R. Target.</th>
         <th onclick="sortBy('footfall')"          data-col="footfall"         style="min-width:70px;text-align:right">Footfall</th>
         <th onclick="sortBy('footfallRadius')"    data-col="footfallRadius"   style="min-width:80px;text-align:center">FF Radius</th>
-        <th onclick="sortBy('retargeting')"       data-col="retargeting"      style="min-width:100px">Retargeting</th>
         <th style="min-width:80px">Status</th>
         <th style="min-width:100px">Action</th>
       </tr></thead>
@@ -446,13 +444,11 @@ function render() {
       </td>
       <td style="min-width:80px"  class="cell-mono">${fN(row.actualClicks)}</td>
       <td style="min-width:60px"  class="cell-mono">${row.ctr>0?row.ctr.toFixed(2)+'%':'<span class="dash">—</span>'}</td>
-      <td style="min-width:80px"  class="cell-eur">${fE(row.budgetEUR)}</td>
       <td style="min-width:70px"  class="cell-monoc">${na(row.maids)}</td>
       <td style="min-width:60px"  class="cell-monoc">${row.numLocs>0?row.numLocs:'<span class="dash">—</span>'}</td>
       <td style="min-width:90px"  class="cell-monoc">${na(row.radiusTargeting)}</td>
       <td style="min-width:70px"  class="cell-mono">${row.footfall>0?row.footfall.toLocaleString():'<span class="dash">—</span>'}</td>
       <td style="min-width:80px"  class="cell-monoc">${na(row.footfallRadius)}</td>
-      <td style="min-width:100px"><div class="cell-sub" style="font-size:9px">${na(row.retargeting)}</div></td>
       <td style="min-width:80px"><div class="scell"><span class="sdot ${si.c}"></span>${si.l}</div></td>
       <td style="min-width:100px"><button class="btn-req" onclick="openModal(${idx})">Request CS →</button></td>`;
     tbody.appendChild(tr);
@@ -491,7 +487,6 @@ function openModal(idx) {
       <div class="ii"><b>Country</b> ${esc(r.country.replace(/[;\n]+/g,', '))}</div>
       <div class="ii"><b>Type</b> ${esc(r.campaignType)}</div>
       <div class="ii"><b>Period</b> ${r.startDate||'—'} → ${r.endDate||'—'}</div>
-      <div class="ii"><b>Budget</b> €${r.budgetEUR.toLocaleString()}</div>
       ${r.achievement>0?`<div class="ii"><b>AR%</b> ${r.achievement.toFixed(1)}%</div>`:''}
       ${r.actualImpressions>0?`<div class="ii"><b>Impr.</b> ${r.actualImpressions.toLocaleString()}</div>`:''}
     </div>`;
